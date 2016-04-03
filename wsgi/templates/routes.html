@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row marketing">
+      {% for route in routes %}
+          <h4>{{ route.route_name }}</h4>
+          <ul>
+            <li><strong>Start: </strong>{{ route.route_start}}</li>
+            <li><strong>End: </strong>{{ route.route_end}}</li>
+            <li><strong>Total Fare: </strong>{{ route.route_fare}}</li>
+            <li><strong>Beacon: </strong>{{ route.beacon_id}}</li>
+          </ul>
+      {% endfor %}
+    </div>
+{% endblock %}

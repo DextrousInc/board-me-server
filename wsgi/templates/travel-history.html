@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row marketing">
+      {% for travel_history in history %}
+          <h4>Traveled User{{ travel_history.user_id }}</h4>
+          <ul>
+            <li><strong>From</strong>{{ travel_history.route_start}}</li>
+            <li><strong>To: </strong>{{ travel_history.route_end}}</li>
+            <li><strong>Fare Paid: </strong>{{ travel_history.fare_amount}}</li>
+            <li><strong>Travelled on: </strong>{{ travel_history.created_ts}}</li>
+          </ul>
+      {% endfor %}
+    </div>
+{% endblock %}

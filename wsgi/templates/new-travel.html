@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+  <form action="/board/{{ user_id }}" method=post class="form-horizontal">
+    <h2>Travel</h2>
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="fromStop" name="routeStartId" class="input-xlarge"
+            placeholder="Travel from" value="{{ request.form.routeStartId }}"
+            required>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="fromStop" name="routeEndId" class="input-xlarge"
+            placeholder="Travel to" value="{{ request.form.routeEndId }}"
+            required>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="fromStop" name="userId" class="input-xlarge"
+            placeholder="Your User Id" value="{{ request.form.userId }}"
+            required>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-success">Create</button>
+          <a href="{{ url_for('home') }}">Back to home</a>
+        </div>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row marketing">
+      {% for route_location in route_locations %}
+          <h4>{{ route_location.route_name }}</h4>
+          <ul>
+            <li><strong>In Rotue: </strong>{{ route_location.route.route_name}}</li>
+            <li><strong>Stop Name: </strong>{{ route_location.stop_name}}</li>
+            <li><strong>Order: </strong>{{ route_location.stop_order}}</li>
+            <li><strong>Percent Fare: </strong>{{ route_location.fare_percent}}</li>
+            <li><strong>Location: </strong>{{ route_location.location_lati}}, {{ route_location.location_longi}}</li>
+          </ul>
+      {% endfor %}
+    </div>
+{% endblock %}

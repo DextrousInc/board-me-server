@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row marketing">
+      {% for user in users %}
+          <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+          <ul>
+            <li><strong>Joined: </strong>{{ user.created_ts}}</li>
+            <li><strong>Email: </strong>{{ user.email}}</li>
+            <li><strong>username: </strong>{{ user.username}}</li>
+            <li><strong>Wallet: </strong>{{ user.wallet}} {{ user.currency_type }}</li>
+          </ul>
+      {% endfor %}
+    </div>
+{% endblock %}
