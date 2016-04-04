@@ -9,9 +9,11 @@ app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
 
-import wsgi.views.routes
-import wsgi.views.users
-import wsgi.views.history
+import boardme.views.routes
+import boardme.views.users
+import boardme.views.history
 
 if __name__ == "__main__":
+
+    db.create_all()
     app.run()

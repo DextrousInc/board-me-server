@@ -10,4 +10,4 @@ except IOError:
     pass
 
 
-from wsgi import wsgi as application
+from boardme import app as application

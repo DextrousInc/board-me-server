@@ -1,5 +1,5 @@
 from sqlalchemy.orm import relationship
-from wsgi import db
+from boardme import db
 import datetime
 
 

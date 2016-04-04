@@ -1,4 +1,18 @@
 #!/bin/bash
-# This is a simple post deploy hook executed after your application 
-# is deployed and started.  This script gets executed directly, so 
+# This is a simple post deploy hook executed after your application
+# is deployed and started.  This script gets executed directly, so
 # it could be python, php, ruby, etc.
+
+# execute init only for the fist time
+# source $OPENSHIFT_HOMEDIR'python/virtenv/bin/activate'
+#
+# if [ ! -d $OPENSHIFT_REPO_DIR'wsgi/migrations' ]; then
+#     echo "Executing 'python $OPENSHIFT_REPO_DIR/db.py db migrate'"
+#     python  $OPENSHIFT_REPO_DIR'wsgi/db.py db init'
+# fi
+#
+# echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/db.py db migrate'"
+# python $OPENSHIFT_REPO_DIR'wsgi/db.py db migrate'
+#
+# echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/db.py db upgrade'"
+# python $OPENSHIFT_REPO_DIR'wsgi/db.py db upgrade'

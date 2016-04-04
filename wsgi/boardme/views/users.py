@@ -1,8 +1,8 @@
 from flask import render_template, request, jsonify
 
-from wsgi import app, db
+from boardme import app, db
 
-from wsgi.models.users import User
+from boardme.models.users import User
 
 
 @app.route("/users")

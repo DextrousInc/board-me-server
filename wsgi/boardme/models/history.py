@@ -1,4 +1,4 @@
-from wsgi import db
+from boardme import db
 import datetime
 
 

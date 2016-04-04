@@ -1,6 +1,6 @@
 from flask import render_template
 
-from wsgi import app, db
+from boardme import app, db
 
 
 @app.route("/")

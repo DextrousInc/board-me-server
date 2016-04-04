@@ -1,7 +1,7 @@
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-from wsgi import app, db
-from wsgi.config import SQLALCHEMY_DATABASE_URI
+from boardme import app, db
+from boardme.config import SQLALCHEMY_DATABASE_URI
 
 migrate = Migrate(app, db)
 

@@ -1,4 +1,4 @@
-from boardme import app, db
+from boardme import app
 
 app.debug = True
 app.run(port=8090)

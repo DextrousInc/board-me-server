@@ -1,10 +1,10 @@
 from flask import render_template, request, jsonify
 
-from wsgi import app, db
+from boardme import app, db
 
-from wsgi.models.users import User
-from wsgi.models.routes import RouteLocation
-from wsgi.models.history import TravelHistory
+from boardme.models.users import User
+from boardme.models.routes import RouteLocation
+from boardme.models.history import TravelHistory
 
 
 @app.route("/board/<user_id>", methods=['GET','POST'])
