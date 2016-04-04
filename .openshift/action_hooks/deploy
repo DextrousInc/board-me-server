@@ -3,7 +3,7 @@
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
-export PYTHON_EGG_CACHE=$OPENSHIFT_GEAR_DIR/virtenv/lib/python-2.6
+export PYTHON_EGG_CACHE=$OPENSHIFT_GEAR_DIR/virtenv/lib/python2.6
 source $OPENSHIFT_GEAR_DIR/virtenv/bin/activate
 
 #
