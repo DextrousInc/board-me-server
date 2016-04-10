@@ -13,6 +13,17 @@
     </form>
     <h2>Board Wait</h2>
     <div class="row">
+        <div class="large-12 columns">
+            <div class="callout">
+                <h4>This is the simple mock UI to demonstrate the board-wait scenario.
+                    Instead of taking the user's current location and finding the nearest stop, we choose the starting
+                    bus station manually.
+                    The rest of the algorithm remains the same.
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         {% if all_routes and not selected_route %}
             <div class="small-4 columns">
                 <h4>Route</h4>
@@ -61,12 +72,13 @@
         {% endif %}
     </div>
     <div class="row">
-     {% if selected_route and selected_stop and estimated_time %}
+        {% if selected_route and selected_stop and estimated_time %}
             <div class="small-4 columns">
                 <h4>Estimation </h4>
             </div>
             <div class="medium-6 large-8 columns">
-                from : {{ selected_stop.stop_name }} to board the arriving bus in Route : {{ selected_route.route_name }} is
+                from : {{ selected_stop.stop_name }} to board the arriving bus in Route
+                : {{ selected_route.route_name }} is
                 Duration :{{ estimated_time.duration }}
                 Distance :{{ estimated_time.distance }}
             </div>
