@@ -1,14 +1,26 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="row marketing">
-      {% for user in users %}
-          <h4>{{ user.first_name }} {{ user.last_name }}</h4>
-          <ul>
-            <li><strong>Joined: </strong>{{ user.created_ts}}</li>
-            <li><strong>Email: </strong>{{ user.email}}</li>
-            <li><strong>username: </strong>{{ user.username}}</li>
-            <li><strong>Wallet: </strong>{{ user.wallet}} {{ user.currency_type }}</li>
-          </ul>
-      {% endfor %}
-    </div>
+<h2>All Users</h2>
+<table>
+  <thead>
+    <tr>
+      <th width="20%">Full Name</th>
+      <th width="20%">username</th>
+      <th width="20%">Email</th>
+      <th width="20%">Wallet</th>
+      <th width="20%">Joined</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.full_name()}}</td>
+      <td>{{ user.username}}</td>
+      <td><a href="mailto:{{ user.email}}">{{ user.email}}</a></td>
+      <td>{{ user.wallet}} {{ user.currency_type }}</td>
+      <td>{{ user.created_ts}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

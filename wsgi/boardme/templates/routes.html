@@ -1,14 +1,28 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="row marketing">
-      {% for route in routes %}
-          <h4>{{ route.route_name }}</h4>
-          <ul>
-            <li><strong>Start: </strong>{{ route.route_start}}</li>
-            <li><strong>End: </strong>{{ route.route_end}}</li>
-            <li><strong>Total Fare: </strong>{{ route.route_fare}}</li>
-            <li><strong>Beacon: </strong>{{ route.beacon_id}}</li>
-          </ul>
-      {% endfor %}
-    </div>
+<h2>Available routes</h2>
+<table>
+  <thead>
+    <tr>
+      <th width="20%">Name</th>
+      <th width="20%">Start Location</th>
+      <th width="20%">End location</th>
+      <th width="10%">Total Fare</th>
+      <th width="20%">Attached Beacon</th>
+      <th width="10%">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for route in routes %}
+    <tr>
+      <td>{{ route.route_name }}</td>
+      <td>{{ route.route_start}}</td>
+      <td>{{ route.route_end}}</td>
+      <td>{{ route.route_fare}}</td>
+      <td>{{ route.beacon_id}}</td>
+      <td><a href="/route-locations/{{ route.id }}" class="small button">View stops</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

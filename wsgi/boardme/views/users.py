@@ -1,14 +1,43 @@
-from flask import render_template, request, jsonify
+from flask import render_template, redirect, session, url_for, request, jsonify
 
 from boardme import app, db
 
 from boardme.models.users import User
 
-
 @app.route("/users")
 def view_users():
     all_users = User.query.all()
     return render_template('users.html', users=all_users)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login_user():
+    if request.method == 'POST':
+        _username = request.form['username']
+        _password = request.form['password']
+        user = User.query.filter_by(username=_username).first()
+        if user and user.check_password(_password):
+            session['user'] = user.to_dict()
+            return redirect(url_for('home'))
+        else:
+            return render_template("login-form.html", error='Invalid user credentials!!')
+    else:
+        return render_template("login-form.html")
+
+
+@app.route("/logout")
+def logout_user():
+    if session['user']:
+        session.clear()
+    return redirect(url_for('home'))
+
+
+@app.route("/my-profile")
+def my_profile():
+    if session['user']:
+        _user_info = User.query.filter_by(id=session['user']['id']).first()
+        return render_template('my-profile.html', user=_user_info)
+    return 'Not logged In', 401
 
 
 @app.route("/api/users/all")
@@ -32,3 +61,14 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
     return jsonify(success=True, result= new_user.to_dict())
+
+
+@app.route("/api/login", methods=['POST'])
+def login():
+    _username = request.form['username']
+    _password = request.form['password']
+    user = User.query.filter_by(username=_username).first()
+    if user and user.check_password(_password):
+        return jsonify(success=True, item=user.to_dict())
+    else:
+        return jsonify(success=False, error='Invalid user credentials!!')

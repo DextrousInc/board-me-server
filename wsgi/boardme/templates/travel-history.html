@@ -1,14 +1,28 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="row marketing">
-      {% for travel_history in history %}
-          <h4>Traveled User{{ travel_history.user_id }}</h4>
-          <ul>
-            <li><strong>From</strong>{{ travel_history.route_start}}</li>
-            <li><strong>To: </strong>{{ travel_history.route_end}}</li>
-            <li><strong>Fare Paid: </strong>{{ travel_history.fare_amount}}</li>
-            <li><strong>Travelled on: </strong>{{ travel_history.created_ts}}</li>
-          </ul>
-      {% endfor %}
-    </div>
+<h2>Your travel History</h2>
+<table>
+  <thead>
+    <tr>
+      <th width="10%">Route</th>
+      <th width="15%">From</th>
+      <th width="15%">To</th>
+      <th width="20%">Travelled on</th>
+      <th width="15%">Fare amount</th>
+      <th width="25%">Boarded on location</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for travel_history in history %}
+    <tr>
+      <td>{{ travel_history.start_route.route.route_name}}</td>
+      <td>{{ travel_history.start_route.stop_name}}</td>
+      <td>{{ travel_history.end_route.stop_name}}</td>
+      <td>{{ travel_history.created_ts}}</td>
+      <td>{{ travel_history.fare_amount}} {{ travel_history.user.currency_type}}</td>
+      <td>{{ travel_history.location_lati}}, {{ travel_history.location_longi}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

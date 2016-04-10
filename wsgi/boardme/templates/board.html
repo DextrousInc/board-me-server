@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block body %}
+    <script src="../static/src/js/boarding.js"></script>
+    <form action="/board-me" id="boardForm" method=post class="form-horizontal">
+        <input type="hidden" name="routeId"
+                {% if  selected_route %}
+               value="{{ selected_route.id }}"
+                {% endif %}/>
+        <input type="hidden" name="startRoute"
+                {% if  selected_start_point %}
+               value="{{ selected_start_point.id }}"
+                {% endif %}/>
+        <input type="hidden" name="endRoute"
+                {% if  selected_end_point %}
+               value="{{ selected_end_point.id }}"
+                {% endif %}/>
+    </form>
+    <h2>Travel</h2>
+    <div class="row">
+        {% if all_routes and not selected_route %}
+            <div class="small-4 columns">
+                <h4>Route</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                <select id="routeSelectInput"
+                >
+                    <option>Select</option>
+                    {% for route in all_routes %}
+                        <option value="{{ route.id }}">{{ route.route_name }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+        {% elif selected_route %}
+            <div class="small-4 columns">
+                <h4>Selected Route:</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                {{ selected_route.route_name }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if selected_route and not selected_start_point %}
+            <div class="small-4 columns">
+                <h4>Start point</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                <select id="startSelectInput"
+                >
+                    <option>Select</option>
+                    {% for route_location in all_stops %}
+                        <option value="{{ route_location.id }}">{{ route_location.stop_name }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+        {% elif selected_start_point %}
+            <div class="small-4 columns">
+                <h4>Selected start point: </h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                {{ selected_start_point.stop_name }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if selected_start_point and not selected_end_point %}
+            <div class="small-4 columns">
+                <h4>End point: </h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                <select id="endSelectInput"
+                >
+                    <option>Select</option>
+                    {% for route_location in all_stops %}
+                        <option value="{{ route_location.id }}">{{ route_location.stop_name }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            {% elif selected_end_point %}
+            <div class="small-4 columns">
+                <h4>Selected end point:</h4>
+            </div>
+            <div class="medium-6 large-8 columns">{{ selected_end_point.stop_name }}
+            </div>
+        {% endif %}
+    </div>
+    {% if selected_end_point %}
+        <form method="post" action="/new-board">
+            <input type="hidden" name="routeStartId"
+                    {% if  selected_start_point %}
+                   value="{{ selected_start_point.id }}"
+                    {% endif %}/>
+            <input type="hidden" name="routeEndId"
+                    {% if  selected_end_point %}
+                   value="{{ selected_end_point.id }}"
+                    {% endif %}/>
+            <div class="row">
+                <div class="small-4 columns">
+                    <button type="submit" class="success button">Board</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+    <a href="{{ url_for('home') }}">Back to home</a>
+{% endblock %}

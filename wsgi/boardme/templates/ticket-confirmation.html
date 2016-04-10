@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form action="/board/{{ user_id }}" method=post class="form-horizontal">
+        <h2>Ticket Confirmation</h2>
+        <div class="row">
+            <div class="small-4 columns">
+                <h4>User Name:</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                {{ user_travel.user.first_name }} {{ user_travel.user.last_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-4 columns">
+                <h4>Route:</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                {{ user_travel.start_route.route.route_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-4 columns">
+                <h4>Traveled:</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                <strong>From</strong> {{ user_travel.start_route.stop_name }}
+                <strong>to</strong> {{ user_travel.end_route.stop_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-4 columns">
+                <h4>Traveled on:</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                {{ user_travel.created_ts }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-4 columns">
+                <h4>Travel fare:</h4>
+            </div>
+            <div class="medium-6 large-8 columns">
+                {{ user_travel.fare_amount }} {{ user_travel.user.currency_type }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-6 large-8 columns">
+                <a class="button" href="{{ url_for('home') }}">Back to home</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

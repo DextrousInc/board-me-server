@@ -1,5 +1,6 @@
 from boardme import db
 import  datetime
+from sqlalchemy.orm import relationship
 from werkzeug import generate_password_hash, check_password_hash
 
 
@@ -15,6 +16,7 @@ class User(db.Model):
     wallet = db.Column(db.Float)
     created_ts = db.Column(db.DateTime, default=datetime.datetime.now())
     last_updated_ts = db.Column(db.DateTime, default=datetime.datetime.now())
+    history = relationship('TravelHistory', back_populates='user')
 
     def __init__(self, first_name, last_name, username, email, password, currency_type, wallet):
         self.first_name = first_name
@@ -28,10 +30,15 @@ class User(db.Model):
     def check_password(self, _password):
         return check_password_hash(self.password, _password)
 
+    def full_name(self):
+        return self.first_name + ' ' + self.last_name
+
     def to_dict(self):
         return {
+            'id': self.id,
             'firstName': self.first_name,
             'lastName': self.last_name,
+            'fullName': self.first_name + ' ' + self.last_name,
             'username': self.username,
             'email': self.email,
             'currencyType': self.currency_type,
