@@ -9,10 +9,8 @@ CURRENT_DIRECTORY=$(pwd)
 # if there is a migrations directory in $OPENSHIFT_DATA_DIR folder then it means we need not init
 # we can just copy the files
 if [  -d $OPENSHIFT_DATA_DIR'migrations/' ]; then
-    echo "Creating migrations directory in $OPENSHIFT_REPO_DIR"
-    mkdir $OPENSHIFT_REPO_DIR'wsgi/migrations'
     echo "Copying migrations directory from $OPENSHIFT_DATA_DIR to $OPENSHIFT_REPO_DIR/wsgi"
-    cp -rf $OPENSHIFT_DATA_DIR'migrations/' $OPENSHIFT_REPO_DIR'wsgi/migrations/'
+    cp -rf $OPENSHIFT_DATA_DIR'migrations/' $OPENSHIFT_REPO_DIR'wsgi/'
 else
     echo "Creating the $OPENSHIFT_DATA_DIR/migrations directory "
     mkdir $OPENSHIFT_DATA_DIR'migrations'
@@ -35,7 +33,7 @@ python db.py db upgrade
 
 if [  -d $OPENSHIFT_DATA_DIR'migrations/' ]; then
     echo "Copying the contents from $OPENSHIFT_DATA_DIR/migrations to $OPENSHIFT_REPO_DIR/wsgi/migrations directory "
-    cp -rf $OPENSHIFT_REPO_DIR'wsgi/migrations/' $OPENSHIFT_DATA_DIR'migrations/'
+    cp -rf $OPENSHIFT_REPO_DIR'wsgi/migrations/' $OPENSHIFT_DATA_DIR
 fi
 
 
