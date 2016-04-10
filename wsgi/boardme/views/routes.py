@@ -38,9 +38,13 @@ def board_routes():
                 _all_stops = RouteLocation \
                     .query \
                     .filter(RouteLocation.stop_order > _selected_start_point.stop_order) \
-                    .filter_by(route_id=route_id).all()
+                    .filter_by(route_id=route_id)\
+                    .order_by(RouteLocation.stop_order.asc())\
+                    .all()
         else:
-            _all_stops = RouteLocation.query.filter_by(route_id=route_id).all()
+            _all_stops = RouteLocation.query.filter_by(route_id=route_id)\
+                .order_by(RouteLocation.stop_order.asc())\
+                .all()
     else:
         _all_routes = Route.query.all()
 
@@ -83,7 +87,9 @@ def board_wait():
                 _estimated_time = calculate_min_wait_time(from_location=_selected_stop, to_location=recent_boarding_location)
                 # print _estimated_time
         else:
-            _all_stops = RouteLocation.query.filter_by(route_id=route_id).all()
+            _all_stops = RouteLocation.query.filter_by(route_id=route_id)\
+                .order_by(RouteLocation.stop_order.asc())\
+                .all()
     else:
         _all_routes = Route.query.all()
 
@@ -101,7 +107,9 @@ def get_routes():
 @app.route("/api/routes/locations/all", methods=["GET"])
 def get_route_locations():
     _route_id = request.args['routeId']
-    route_locations = RouteLocation.query.filter_by(route_id=_route_id).all()
+    route_locations = RouteLocation.query.filter_by(route_id=_route_id)\
+        .order_by(RouteLocation.stop_order.asc())\
+        .all()
     all_route_locations = [route_loc.to_dict() for route_loc in route_locations]
     return jsonify(success=True, items=all_route_locations)
 
@@ -143,7 +151,9 @@ def api_board_wait():
     route_id = request.args['routeId']
 
     # get the nearest stop of the user in the given route
-    route_locations = RouteLocation.query.filter_by(route_id=route_id).all()
+    route_locations = RouteLocation.query.filter_by(route_id=route_id)\
+        .order_by(RouteLocation.stop_order.asc())\
+        .all()
     user_location = Coordinate(location_lati=latitude, location_longi=longitude)
     close_stop = get_the_closest_location(location=user_location, route_locations=route_locations)
 

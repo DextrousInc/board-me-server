@@ -6,7 +6,7 @@ from boardme.models.users import User
 
 @app.route("/users")
 def view_users():
-    all_users = User.query.all()
+    all_users = User.query.order_by(User.first_name.asc()).all()
     return render_template('users.html', users=all_users)
 
 
@@ -42,7 +42,7 @@ def my_profile():
 
 @app.route("/api/users/all")
 def get_users():
-    all_users = User.query.all()
+    all_users = User.query.order_by(User.first_name.asc()).all()
     result = [user.to_dict() for user in all_users]
     return jsonify(items=result, success=True)
 

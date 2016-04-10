@@ -11,7 +11,7 @@ from boardme.models.history import TravelHistory
 def board_view_and_add(user_id=None):
     if session['user']:
         _user_id = session['user']['id']
-        user_travel = TravelHistory.query.filter_by(user_id=_user_id).all()
+        user_travel = TravelHistory.query.filter_by(user_id=_user_id).order_by(TravelHistory.created_ts.desc()).all()
         return render_template('travel-history.html', history=user_travel)
     else :
         return 'Not Logged In', 401
@@ -28,7 +28,10 @@ def board_submit():
 @app.route("/api/travel-history/all", methods=['GET'])
 def user_travel_history():
     _user_id = request.args['userId']
-    user_travel = TravelHistory.query.filter_by(user_id=_user_id).all()
+    user_travel = TravelHistory.query\
+        .filter_by(user_id=_user_id)\
+        .order_by(TravelHistory.created_ts.desc())\
+        .all()
     result = [travel.to_dict() for travel in user_travel]
     return jsonify(success=True, items=result)
 
