@@ -166,6 +166,38 @@ def api_board_wait():
     return "Invalid input", 403
 
 
+@app.route("/api/board-me", methods=['GET'])
+def api_board_me():
+    latitude = request.args['latitude']
+    longitude = request.args['longitude']
+    _beacon_id = request.args['beaconId']
+    user_id = request.args['userId']
+
+    # get the corresponding route of the beacon
+    current_route = Route.query.filter_by(beacon_id=_beacon_id).first()
+
+    # get the nearest stop of the user in the given route
+    route_locations = RouteLocation.query\
+        .filter_by(route_id=current_route.id)\
+        .order_by(RouteLocation.stop_order.asc())\
+        .all()
+    user_location = Coordinate(location_lati=latitude, location_longi=longitude)
+    close_stop = get_the_closest_location(location=user_location, route_locations=route_locations)
+
+    # get all route locations after the close stop
+    all_stops = RouteLocation.query\
+        .filter(RouteLocation.stop_order > close_stop.stop_order) \
+        .filter_by(route_id=current_route.id)\
+        .order_by(RouteLocation.stop_order.asc())\
+        .all()
+
+    if close_stop and current_route and len(all_stops) > 0:
+        # get the selected route and stops
+        next_stops = [stop.to_dict() for stop in all_stops]
+        return jsonify(selectedRoute=current_route.to_dict(), selectedStop=close_stop.to_dict(), nextStops=next_stops)
+    return "Invalid input", 403
+
+
 def get_the_closest_location(location, route_locations):
     # loop through the route_locations and find the nearest one
     picked_location = None

@@ -29,11 +29,14 @@ class TravelHistory(db.Model):
     def to_dict(self):
         return {
             'userId': self.user_id,
-            'routeStart': self.route_start,
-            'routeEnd': self.route_end,
+            'routeStartId': self.route_start,
+            'routeEndId': self.route_end,
             'fareAmount': self.fare_amount,
             'latitude': self.location_lati,
             'longitude': self.location_longi,
+            'startRoute': self.start_route.to_dict(),
+            'endRoute': self.end_route.to_dict(),
+            'user': self.user.to_dict(),
             'createdTS': self.created_ts,
             'lastUpdatedTS': self.last_updated_ts
         }

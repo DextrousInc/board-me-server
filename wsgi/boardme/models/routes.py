@@ -58,13 +58,14 @@ class RouteLocation(db.Model):
 
     def to_dict(self):
         return {
-            'id' : self.id,
-            'routeId' : self.route_id,
-            'stopName' : self.stop_name,
-            'stopOrder' : self.stop_order,
-            'farePercent' : self.fare_percent,
-            'locationLatitute' : self.location_lati,
-            'locationLongitute' : self.location_longi,
-            'createdTS' : self.created_ts,
-            'lastUpdateTS' : self.last_updated_ts
+            'id': self.id,
+            'routeId': self.route_id,
+            'stopName': self.stop_name,
+            'stopOrder': self.stop_order,
+            'farePercent': self.fare_percent,
+            'locationLatitute': self.location_lati,
+            'locationLongitute': self.location_longi,
+            'route': self.route.to_dict(),
+            'createdTS': self.created_ts,
+            'lastUpdateTS': self.last_updated_ts
         }
