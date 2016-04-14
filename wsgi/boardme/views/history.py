@@ -9,7 +9,7 @@ from boardme.models.history import TravelHistory
 
 @app.route("/my-board", methods=['GET','POST'])
 def board_view_and_add(user_id=None):
-    if session['user']:
+    if session.get('user', None):
         _user_id = session['user']['id']
         user_travel = TravelHistory.query.filter_by(user_id=_user_id).order_by(TravelHistory.created_ts.desc()).all()
         return render_template('travel-history.html', history=user_travel)
@@ -19,7 +19,7 @@ def board_view_and_add(user_id=None):
 
 @app.route("/new-board", methods=['POST'])
 def board_submit():
-    if not session['user']:
+    if not session.get('user', None):
         return 'Not logged In', 401
     _user_travel = add_travel_to_db(request)
     return render_template('ticket-confirmation.html',user_travel=_user_travel)
@@ -39,11 +39,11 @@ def user_travel_history():
 @app.route("/api/travel-history/add", methods=['POST'])
 def add_travel_history():
     user_travel = add_travel_to_db(request)
-    return jsonify(success=True, item=user_travel)
+    return jsonify(success=True, item=user_travel.to_dict())
 
 
 def add_travel_to_db(request_in):
-    if session['user']:
+    if session.get('user', None):
         _user_id = session['user']['id']
     else:
         _user_id = request_in.form['userId']

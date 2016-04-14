@@ -27,14 +27,14 @@ def login_user():
 
 @app.route("/logout")
 def logout_user():
-    if session['user']:
+    if session.get('user',None):
         session.clear()
     return redirect(url_for('home'))
 
 
 @app.route("/my-profile")
 def my_profile():
-    if session['user']:
+    if session.get('user', None):
         _user_info = User.query.filter_by(id=session['user']['id']).first()
         return render_template('my-profile.html', user=_user_info)
     return 'Not logged In', 401

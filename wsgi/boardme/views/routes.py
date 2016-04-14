@@ -162,7 +162,8 @@ def api_board_wait():
     # print recent_boarding_location.to_dict()
     if close_stop and recent_boarding_location:
         # get the ETA
-        return jsonify(items=calculate_min_wait_time(from_location=close_stop, to_location=recent_boarding_location))
+        _eta_data = calculate_min_wait_time(from_location=close_stop, to_location=recent_boarding_location)
+        return jsonify(success=True, item={'eta': _eta_data, 'closeStop': close_stop.to_dict()})
     return "Invalid input", 403
 
 
