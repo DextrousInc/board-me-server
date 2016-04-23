@@ -63,8 +63,8 @@ class RouteLocation(db.Model):
             'stopName': self.stop_name,
             'stopOrder': self.stop_order,
             'farePercent': self.fare_percent,
-            'locationLatitute': self.location_lati,
-            'locationLongitute': self.location_longi,
+            'locationLatitute': float(self.location_lati),
+            'locationLongitute': float(self.location_longi),
             'route': self.route.to_dict(),
             'createdTS': self.created_ts,
             'lastUpdateTS': self.last_updated_ts
