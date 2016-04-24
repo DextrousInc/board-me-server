@@ -5,4 +5,9 @@ from boardme import app, db
 
 @app.route("/")
 def home():
-    return render_template('home.html', logged_in=False)
+    return render_template('home.html')
+
+
+@app.route("/about-app")
+def about_app():
+    return render_template('about-app.html')
