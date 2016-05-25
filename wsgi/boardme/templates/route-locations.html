@@ -1,26 +1,29 @@
 {% extends "layout.html" %}
 {% block body %}
-{% if route_locations.count() > 0 %}
-    <h2>Stops in the route {{ route_locations[0].route.route_name }}</h2>
-<table>
-  <thead>
-    <tr>
-      <th width="25%">Stop Name</th>
-      <th width="25%">Stop Order</th>
-      <th width="20%">Fare Percent</th>
-      <th width="30%">Location</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for route_location in route_locations %}
-    <tr>
-      <td>{{ route_location.stop_name}}</td>
-      <td>{{ route_location.stop_order}}</td>
-      <td>{{ route_location.fare_percent}}%</td>
-      <td>{{ route_location.location_lati}}, {{ route_location.location_longi}}</td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
-{% endif %}
+    {% if route_locations %}
+        <h2>Stops in the route {{ route_locations[0].route.route_name }}</h2>
+        <table>
+            <thead>
+            <tr>
+                <th width="25%">Stop Name</th>
+                <th width="25%">Stop Order</th>
+                <th width="20%">Fare Percent</th>
+                <th width="30%">Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for route_location in route_locations %}
+                <tr>
+                    <td>{{ route_location.stop_name }}</td>
+                    <td>{{ route_location.stop_order }}</td>
+                    <td>{{ route_location.fare_percent }}%</td>
+                    <td>{{ route_location.location_lati }}, {{ route_location.location_longi }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h2>No route location to display</h2>
+
+    {% endif %}
 {% endblock %}

@@ -56,7 +56,7 @@ def board_routes():
 
 @app.route("/route-locations/<route_id>")
 def view_route_locations(route_id=None):
-    route_locations = RouteLocation.query.filter_by(route_id=route_id)
+    route_locations = RouteLocation.query.filter_by(route_id=route_id).order_by(RouteLocation.stop_order.asc()).all()
     return render_template('route-locations.html', route_locations=route_locations)
 
 
