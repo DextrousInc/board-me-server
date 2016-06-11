@@ -4,6 +4,7 @@ from boardme import app, db
 
 from boardme.models.users import User
 
+
 @app.route("/users")
 def view_users():
     all_users = User.query.order_by(User.first_name.asc()).all()
@@ -27,7 +28,7 @@ def login_user():
 
 @app.route("/logout")
 def logout_user():
-    if session.get('user',None):
+    if session.get('user', None):
         session.clear()
     return redirect(url_for('home'))
 
@@ -53,14 +54,19 @@ def add_user():
     _last_name = request.form['lastName']
     _username = request.form['username']
     _password = request.form['password']
-    _email = request.form['email']
+    _mobile = request.form['mobile']
     _wallet = 10000
+    if request.form.get('wallet', None):
+        _wallet = float(request.form['wallet'])
     _currency_type = 'INR'
+    if request.form.get('currencyType', None):
+        _wallet = float(request.form['currencyType'])
     new_user = User(first_name=_first_name, last_name=_last_name,
-                    username=_username, password=_password,email=_email, wallet=_wallet,currency_type=_currency_type)
+                    username=_username, password=_password, mobile=_mobile, wallet=_wallet,
+                    currency_type=_currency_type)
     db.session.add(new_user)
     db.session.commit()
-    return jsonify(success=True, result= new_user.to_dict())
+    return jsonify(success=True, result=new_user.to_dict())
 
 
 @app.route("/api/login", methods=['POST'])

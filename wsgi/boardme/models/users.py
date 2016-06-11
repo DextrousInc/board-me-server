@@ -10,7 +10,7 @@ class User(db.Model):
     first_name = db.Column(db.String(128))
     last_name = db.Column(db.String(128))
     username = db.Column(db.String(128))
-    email = db.Column(db.String(128))
+    mobile = db.Column(db.String(128))
     password = db.Column(db.String(128))
     currency_type = db.Column(db.String(128))
     wallet = db.Column(db.Float)
@@ -18,11 +18,11 @@ class User(db.Model):
     last_updated_ts = db.Column(db.DateTime, default=datetime.datetime.now())
     history = relationship('TravelHistory', back_populates='user')
 
-    def __init__(self, first_name, last_name, username, email, password, currency_type, wallet):
+    def __init__(self, first_name, last_name, username, mobile, password, currency_type, wallet):
         self.first_name = first_name
         self.last_name = last_name
         self.username = username
-        self.email = email
+        self.mobile = mobile
         self.password = generate_password_hash(password)
         self.currency_type = currency_type
         self.wallet = wallet
@@ -40,7 +40,7 @@ class User(db.Model):
             'lastName': self.last_name,
             'fullName': self.first_name + ' ' + self.last_name,
             'username': self.username,
-            'email': self.email,
+            'mobile': self.mobile,
             'currencyType': self.currency_type,
             'wallet': self.wallet,
             'createdTS': self.created_ts,

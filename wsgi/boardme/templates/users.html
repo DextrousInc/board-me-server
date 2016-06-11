@@ -6,7 +6,7 @@
     <tr>
       <th width="20%">Full Name</th>
       <th width="20%">username</th>
-      <th width="20%">Email</th>
+      <th width="20%">Mobile</th>
       <th width="20%">Wallet</th>
       <th width="20%">Joined</th>
     </tr>
@@ -16,7 +16,7 @@
     <tr>
       <td>{{ user.full_name()}}</td>
       <td>{{ user.username}}</td>
-      <td><a href="mailto:{{ user.email}}">{{ user.email}}</a></td>
+      <td>{{ user.mobile}}</td>
       <td>{{ user.wallet}} {{ user.currency_type }}</td>
       <td>{{ user.created_ts}}</td>
     </tr>
