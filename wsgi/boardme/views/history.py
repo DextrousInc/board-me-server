@@ -3,6 +3,7 @@ from sqlalchemy.sql import text
 
 from boardme import app, db
 from twilio.rest import TwilioRestClient
+import nexmo
 
 from boardme.models.users import User
 from boardme.models.routes import RouteLocation
@@ -88,6 +89,22 @@ def get_most_recent_boarding_in_route(route_id, stop_order):
 
 
 def send_sms_to_user(user, history):
+    send_sms_to_user_through_twilio(user, history)
+
+
+def send_sms_to_user_through_nexmo(user, history):
+    account_key = app.config['NEXMO_API_KEY']
+    auth_secret = app.config['NEXMO_API_SECRET']
+    client = nexmo.Client(key=account_key, secret=auth_secret)
+    _from = app.config['TWILIO_SENDER_NUMBER']
+    _message = 'Hi %s, \n Your ticket has been booked on %s and you have been charged %s' % (
+        user.full_name(), str(history.created_ts), str(history.fare_amount))
+    response = client.send_message({'from': _from, 'to': user.mobile, 'text': _message})
+    message = response['messages'][0]
+    print(message)
+
+
+def send_sms_to_user_through_twilio(user, history):
     account_sid = app.config['TWILIO_ACCOUNT_SID']  # Your Account SID from www.twilio.com/console
     auth_token = app.config['TWILIO_AUTH_TOKEN']  # Your Auth Token from www.twilio.com/console
     _from = app.config['TWILIO_SENDER_NUMBER']
