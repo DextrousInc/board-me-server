@@ -71,7 +71,7 @@ The following is the little statistical information that has been gathered as a 
 * R. Balasubramanian, a former Managing Director of MTC, says that a promise was made in 2006 to induct 1,000 new buses every year.
 * The MTC operates approximately 640 routes with a fleet of about 3300 buses. The fleet strength is depicted in the Figure. During peak hours, the buses operate with more than 100 passengers per bus indicating substantial overcrowding. The MTC covers most of the CMA and even covers up to 50 km beyond the city.
 
-![Statistics](./images/PublicTransport Stats.png)
+![Statistics](./images/PublicTransportStats.png)
 
 
 
