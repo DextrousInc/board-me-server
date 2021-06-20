@@ -35,7 +35,7 @@ This is the flow in which the user boards a bus and pays through the app.
 
 ## Steps to run the application
 ### installing the packages
-- `` cd donna-backend ``
+- `` cd board-me-server ``
 - run the command `` pip install --upgrade -r requirements.txt ``
 - use `` sudo `` if fails with permission issues
 
